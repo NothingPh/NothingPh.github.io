@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', Sans-Serif;
+  font-family: 'Poppins', Sans-Serif; 
   /*border: 1px solid black;*/
 }
 .container {
@@ -15,13 +15,13 @@
 }
 .content {
   border-radius: 5px;
-  min-height: 300px;
   height: 40vh;
+  max-height: 90vh;
   padding: 10px;
 }
 .content {
   width: 100%;
-  margin: 50px 30px;
+  margin: 20px 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,7 +40,9 @@
 input,
 #submit,
 #changepass,
-#deletebtn{
+#deletebtn,
+#checkUsername,
+#send{
   width: 100%;
   margin: 10px 10px 0 10px;
   height: 30px;
@@ -55,7 +57,9 @@ input:focus {
 }
 #submit,
 #changepass,
-#deletebtn{
+#deletebtn,
+#checkUsername,
+#send{
  display: grid;
  cursor: pointer;
  place-content: center;
@@ -65,10 +69,20 @@ input:focus {
   background-color: black;
   text-align: center;
 }
-#submit:focus,
-#changepass:focus,
-#deletebtn:focus{
+#submit:active,
+#changepass:active,
+#deletebtn:active,
+#checkUsername:active,
+#send:active{
   background-color: #1d1d1d;
+}
+#submit:disabled,
+#changepass:disabled,
+#deletebtn:disabled,
+#checkUsername:disabled,
+#send:disabled{
+  background-color: #1d1d1d;
+  cursor: progress;
 }
 a {
   margin-top: 10px;
@@ -77,14 +91,20 @@ a {
   font-size: 0.8rem;
 }
 #message {
- margin-top: 10px;
+  margin-top: 10px;
   height: 250px;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
+  resize: none;
 }
 .name {
   font-size: 1.5rem;
+}
+.validatename{
+  font-style: italic; 
+  font-size: 0.8rem; 
+  color: #404040;
 }
 #userlink {
   border: 1px solid black;
@@ -111,16 +131,23 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  overflow: auto;
+  height: auto;
+  box-sizing: border-box;
+  gap: 10px;
 }
 .messages p {
   margin: 3px;
 }
 .message-text {
+  margin-top: 10px;
   font-size: 1.3rem;
 }
 .message-count {
   font-size: 0.9rem;
   color: rgb(98, 98, 98);
+  margin-bottom: 10px;
 }
 .splitter {
   font-size: 0.6rem;
@@ -224,4 +251,19 @@ a {
 }
 #yes{
  background-color: #d31313;
+}
+.message-container{
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgb(68,68,68);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
 }
