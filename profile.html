@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/index.css" />
     <title>Nothing</title>
     <script src="js/index.js"></script>
+    <link rel="shortcut icon" href="nothing.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://www.googleapis.com/webfonts/v1/webfonts?key=Poppins" type="text/css" media="all" />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
@@ -31,11 +32,11 @@
         <img src="nothing-logo.png" alt="Nothing" class="logo" />
         <p class="name" id="name">Name</p>
         <div class="links">
-          <a href="dashboard">Dashboard</a>
+          <a href="dashboard.html">Dashboard</a>
           <span class="splitter">|</span>
-          <a id="signOut" href="index">Sign Out</a>
+          <a id="signOut" href="index.html">Sign Out</a>
           <span class="splitter">|</span>
-          <a id="donate" href="donate">Donate</a>
+          <a id="donate" href="donate.html">Donate</a>
         </div>
         <input
           type="text"
@@ -78,7 +79,7 @@
           placeholder="Confirm Password"
           class="field pass"
         />
-        <button type="button" id="changepass">Change Password</button>
+        <button type="submit" id="changepass">Change Password</button>
         <button type="submit" id="deletebtn">Delete Account</button>
         <button type="submit" id="submit">Update profile</button>
       </div>
@@ -154,11 +155,13 @@
           username.value = currentUser.Username;
           email.value = currentUser.Email;
         } else {
-          window.location = "index";
+          window.location = "index.html";
         }
       };
 
       upDate.addEventListener("click", function () {
+        passbtn.disabled;
+        deletebtn.disabled;
         loading(btnId);
         if (passclass[0].style.display == "block") {
           const dbRef = ref(getDatabase());
@@ -201,7 +204,7 @@
                 }
               } else {
                 console.log("No data available");
-                window.location = "index";
+                window.location = "index.html";
               }
             })
             .catch((error) => {
@@ -228,10 +231,10 @@
       });
 
       deletebtn.addEventListener("click", function () {
+        passbtn.disabled;
+        submit.disabled;
         btnId = deletebtn;
         loading(btnId);
-        submit.disable;
-        passbtn.disable;
         deletebox();
         yesbtn.addEventListener('click', function(){
         deletebox();
@@ -241,7 +244,7 @@
             info(alertInfo);
             console.log(alertInfo);
             sessionStorage.removeItem("users");
-            window.location = "index";
+            window.location = "index.html";
           })
           .catch((error) => {
             var alertInfo = "Unsuccessful, error";

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/index.css" />
     <title>Nothing</title>
     <script src="js/index.js"></script>
+    <link rel="shortcut icon" href="nothing.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://www.googleapis.com/webfonts/v1/webfonts?key=Poppins" type="text/css" media="all" />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
@@ -24,26 +25,52 @@
         <img src="nothing-logo.png" alt="Nothing" class="logo" />
         <p class="name" id="name">Name</p>
         <div class="links">
-          <a href="profile">Profile</a>
+          <a href="profile.html">Profile</a>
           <span class="splitter">|</span>
-          <a id="signOut" href="index">Sign Out</a>
+          <a id="signOut" href="index.html">Sign out</a>
           <span class="splitter">|</span>
-          <a id="donate" href="donate">Donate</a>
+          <a id="donate" href="donate.html">Donate</a>
         </div>
         <p class="link" id="userlink">Link</p>
-        <div class="messages">
+
           <p class="message-text">Messages</p>
           <p class="message-count">
-            You have <span id="count">(0)</span> messages.
+            You have (<span id="count">0</span>) messages.
           </p>
-        </div>
+          <div class="messages" id="messages">
+            <!-- <div class="message-container">
+              <p id="message-content">Messages</p>
+            </div> -->
+          </div>
       </div>
     </div>
-    <script type="text/javascript" charset="utf-8">
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyCuxZ0denbyqt5BwLn3md4S_lK4ukwpTmQ",
+        authDomain: "myproject-b37b7.firebaseapp.com",
+        databaseURL: "https://myproject-b37b7-default-rtdb.firebaseio.com",
+        projectId: "myproject-b37b7",
+        storageBucket: "myproject-b37b7.appspot.com",
+        messagingSenderId: "603520430780",
+        appId: "1:603520430780:web:d40d827a497d4791cf96b9",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      import {
+        getDatabase,
+        ref,
+        child,
+        get,  
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-database.js";
+      const db = getDatabase(app);
+      const dbref = ref(db);
       let name = document.getElementById("name");
       let userlink = document.getElementById("userlink");
       let signOut = document.getElementById("signOut");
-      let content = document.getElementById("content");
+      let content = document.getElementsByClassName("content")[0];
       var currentUser = null;
       function getUsername() {
         currentUser = JSON.parse(sessionStorage.getItem("users"));
@@ -68,13 +95,47 @@
       window.onload = function () {
         getUsername();
         if (currentUser == null) {
-          window.location = "index";
+          window.location = "index.html";
         } else {
+         //console.log(window.location.host)
           content.style.marginTop = "0";
           name.textContent = currentUser.Username.charAt(0).toUpperCase() + currentUser.Username.slice(1);
-          userlink.textContent = "nothing.me/say/" + currentUser.Username.toLowerCase();
+          userlink.textContent = window.location.host + "/comment.html?username=" + currentUser.Username;
+          messages();
         }
       };
+
+      function messages(){
+        get(child(dbref, "users/" + currentUser.Username + "/messages/")).then((snapshot) => {
+            var count = (snapshot.size);
+            var numcount = document.getElementById("count");
+            let messages = document.getElementById("messages");
+            numcount.textContent = count;
+            content.style.height = 'calc(40vh + (' + count +' * 40px))';
+            
+            if(count > 0){
+             get(child(dbref, "users/" + currentUser.Username + "/messages/")).then((snapshot) => {
+              var txtMessage = [];
+              snapshot.forEach(childSnapshot => {
+                txtMessage.push(childSnapshot.val().message);
+              });
+            /*const dbref = ref(db, "users/" + currentUser.Username + "/messages/");
+            onValue(dbref, (snapshot) =>{
+             var txtMessage = [];
+              snapshot.forEach(childSnapshot => {
+                txtMessage.push(childSnapshot.val().message);
+                //messages.innerHTML += '<div class="message-container"><p id="message-content">"' + txtMessage + '"</p></div>';
+                
+                //console.log(snapshot)
+              });
+            //messages.innerHTML += '<div class="message-container"><p id="message-content">"' + element + '"</p></div>';*/
+            txtMessage.forEach(element => {
+             messages.innerHTML += '<div class="message-container"><p id="message-content">"' + element + '"</p></div>';
+            });
+            });
+            }
+          });
+      }
     </script>
   </body>
 </html>

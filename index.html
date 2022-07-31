@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/index.css" />
     <title>Nothing</title>
+    <link rel="shortcut icon" href="nothing.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://www.googleapis.com/webfonts/v1/webfonts?key=Poppins" type="text/css" media="all" />
     <script src="js/index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -35,7 +36,7 @@
         />
         <button type="submit" id="submit">Sign in</button>
         <a href="register.html">Don't have an account?</a>
-      </div>
+        </div>
     </div>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
@@ -106,9 +107,7 @@
 	    }
 	    }
 	    
-	    
       submitBtn.addEventListener("click", function () {
-       
         loading(btnId);
         if (validation(true)) {
           const dbref = ref(db);

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/index.css" />
+    <link rel="shortcut icon" href="nothing.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://www.googleapis.com/webfonts/v1/webfonts?key=Poppins" type="text/css" media="all" />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
@@ -125,7 +126,7 @@
       window.onload = function () {
         currentUser = JSON.parse(sessionStorage.getItem("users"));
         if (currentUser != null) {
-          window.location = "dashboard";
+          window.location = "dashboard.html";
         }
       };
 
@@ -153,7 +154,7 @@
                   console.log("sign up succesfully");
                   clear();
                   unload(btnId, txtCntnt);
-                  window.location.href = "index";
+                  window.location.href = "index.html";
                 })
                 .catch((error) => {
                   var alertInfo = "Unsuccessful, error";
