@@ -16,13 +16,13 @@ function info(alertInfo) {
 function loading(btnId){
  btnId.innerHTML = '<span id="loading"></span>';
  btnId.style = "background-color: #404040;";
- btnId.disable
+ btnId.disabled = true;
 }
 
 function unload(btnId, txtCntnt){
  btnId.innerHTML = txtCntnt;
  btnId.style = "background-color: #000000;";
- btnId.enable
+ btnId.disabled = false;
 }
 
 function deletebox(){
@@ -37,4 +37,31 @@ function deletebox(){
   alertbox.style.display = "none";
   dim.style.display = "none";
  }
+}
+
+function loadUser(){
+  var textbox = document.getElementById("message");
+  var name = document.getElementById("name");
+  var send = document.getElementById("send");
+
+  name.textContent = "Validating Username...";
+  name.classList.toggle('validatename');
+  send.innerHTML = '<span id="loading"></span>';
+  textbox.placeholder = "Please wait while validating user...";
+  send.style = "background-color: #404040;";
+  send.disabled = true;
+  textbox.disabled = true;
+}
+
+function unloadUser(){
+  var textbox = document.getElementById("message");
+  var name = document.getElementById("name");
+  var send = document.getElementById("send");
+
+  name.classList.remove('validatename');
+  send.innerHTML = "Send message";
+  textbox.placeholder = "Enter your message here...";
+  send.style = "background-color: #000000;";
+  send.disabled = false;
+  textbox.disabled = false;
 }
